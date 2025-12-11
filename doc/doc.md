@@ -1042,15 +1042,6 @@ Expected Response (401):
 
 ---
 
-## További megjegyzések
-
-- **Minden privát végpont Bearer tokent vár fejlécben** (`Authorization: Bearer <token>`).
-- A token a `personal_access_tokens` táblában tárolódik
-- Kijelentkezéskor az összes token törlődik
-- A posztokat csak a tulajdonosuk módosíthatja/törölheti
-- Egy felhasználó egy posztot csak egyszer likeolhat
-- **Soft Delete:** Posztok törlése alapértelmezetten soft delete (`deleted_at` mező). A `?force=true` paraméterrel végleges törlés.
-
 ---
 
 ## IV. Automatizált tesztek (PHPUnit)
@@ -1066,61 +1057,5 @@ php artisan test
 
 **Összesen: 19 teszt** amely lefedi mind a 14 API endpointot
 
-#### AuthTest (4 teszt)
-
-**Fájl:** `tests/Feature/AuthTest.php`
-
-1.  `test_register_creates_user_and_returns_201` - Regisztráció tesztelése
-2.  `test_login_returns_token` - Bejelentkezés token generálással
-3.  `test_logout_revokes_token` - Kijelentkezés és tokenek törlése
-4.  `test_me_returns_authenticated_user` - Saját profil lekérése
-
-#### PostTest (8 teszt)
-
-**Fájl:** `tests/Feature/PostTest.php`
-
-1.  `test_index_returns_posts` - Összes poszt listázása
-2.  `test_show_returns_post` - Egy poszt lekérése
-3.  `test_store_creates_post_authenticated` - Új poszt létrehozása
-4.  `test_update_updates_own_post` - Saját poszt módosítása
-5.  `test_update_forbidden_when_not_owner` - Más posztjának módosítása 403
-6.  `test_soft_delete_marks_deleted` - Soft delete tesztelése
-7.  `test_force_delete_removes_record` - Force delete (`?force=true`)
-8.  `test_user_posts_returns_only_user_posts` - Felhasználó posztjai
-
-#### LikeTest (4 teszt)
-
-**Fájl:** `tests/Feature/LikeTest.php`
-
-1.  `test_like_creates_like` - Poszt likeolása
-2.  `test_like_duplicate_returns_409` - Duplikált like (409 Conflict)
-3.  `test_unlike_removes_like` - Like visszavonása
-4.  `test_post_likes_returns_likes_list` - Poszt like-jainak listázása
-
-#### PingTest (1 teszt)
-
-**Fájl:** `tests/Feature/PingTest.php`
-
-1.  `test_ping_returns_ok` - API működés ellenőrzése
-
-### Teszt környezet konfiguráció
-
-A tesztek `RefreshDatabase` trait-et használnak, amely minden teszt előtt újraépíti az adatbázist.
-
-**phpunit.xml** konfigurációs lehetőségek:
-
-```xml
-<php>
-    <env name="APP_ENV" value="testing"/>
-    <env name="DB_CONNECTION" value="sqlite"/>
-    <env name="DB_DATABASE" value=":memory:"/>
-</php>
-```
-
-**Megjegyzések:**
-- Tesztek izoláltak, minden teszt tiszta adatbázissal indul
-- `actingAs($user, 'sanctum')` - Sanctum authentikáció szimulálása
-- `assertStatus()`, `assertJson()`, `assertJsonStructure()` - HTTP válasz ellenőrzés
-- `assertDatabaseHas()`, `assertDatabaseMissing()` - Adatbázis állapot ellenőrzés
 
 ---
