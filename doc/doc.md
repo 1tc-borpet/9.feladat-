@@ -1064,7 +1064,7 @@ php artisan test
 
 ### Teszt lefedettség összesítése
 
-**Összesen: 18 teszt** amely lefedi mind a 14 API endpointot
+**Összesen: 19 teszt** amely lefedi mind a 14 API endpointot
 
 #### AuthTest (4 teszt)
 
