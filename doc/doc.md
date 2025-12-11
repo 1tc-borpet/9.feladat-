@@ -1060,15 +1060,6 @@ Expected Response (401):
 ```bash
 # Összes teszt futtatása
 php artisan test
-
-# Adott tesztfájl futtatása
-php artisan test --filter AuthTest
-php artisan test --filter PostTest
-php artisan test --filter LikeTest
-php artisan test --filter PingTest
-
-# Verbose kimenet
-php artisan test --verbose
 ```
 
 ### Teszt lefedettség összesítése
