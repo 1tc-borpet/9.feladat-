@@ -63,4 +63,26 @@ class AuthTest extends TestCase
         // Assert all tokens are deleted after logout
         $this->assertEquals(0, $user->tokens()->count());
     }
+
+    public function test_me_returns_authenticated_user()
+    {
+        $user = User::create([
+            'name' => 'TestUser',
+            'email' => 'testuser@example.com',
+            'password' => Hash::make('Jelszo_2025'),
+            'profile_picture' => 'https://example.com/pic.jpg',
+        ]);
+
+        $response = $this->actingAs($user, 'sanctum')->getJson('/api/users/me');
+
+        $response->assertStatus(200)
+            ->assertJson([
+                'user' => [
+                    'id' => $user->id,
+                    'name' => 'TestUser',
+                    'email' => 'testuser@example.com',
+                    'profile_picture' => 'https://example.com/pic.jpg',
+                ]
+            ]);
+    }
 }
