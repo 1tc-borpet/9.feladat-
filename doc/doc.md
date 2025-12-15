@@ -1057,5 +1057,6 @@ php artisan test
 
 **Összesen: 19 teszt** amely lefedi mind a 14 API endpointot
 
+<img width="973" height="578" alt="image" src="https://github.com/user-attachments/assets/2211b7c7-c177-4e35-b528-fd9eece399b4" />
 
 ---
